@@ -8,6 +8,9 @@ RUN mvn clean package -DskipTests
 # Run stage
 FROM eclipse-temurin:17-jre
 WORKDIR /app
+# Create a non-root user
+RUN useradd -m appuser
+USER appuser
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
