@@ -1,0 +1,75 @@
+name: Build and Deploy to AKS
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  ACR_NAME: ${{ secrets.ACR_NAME }}
+  AKS_CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}
+  RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build and Push Backend
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.ACR_NAME }}.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+    - run: |
+        docker build ./backend -t ${{ env.ACR_NAME }}.azurecr.io/backend:${{ github.sha }}
+        docker build ./backend -t ${{ env.ACR_NAME }}.azurecr.io/backend:latest
+        docker push ${{ env.ACR_NAME }}.azurecr.io/backend:${{ github.sha }}
+        docker push ${{ env.ACR_NAME }}.azurecr.io/backend:latest
+
+    - name: Build and Push Frontend
+      run: |
+        docker build ./frontend -t ${{ env.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }}
+        docker build ./frontend -t ${{ env.ACR_NAME }}.azurecr.io/frontend:latest
+        docker push ${{ env.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }}
+        docker push ${{ env.ACR_NAME }}.azurecr.io/frontend:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Set AKS Context
+      uses: azure/aks-set-context@v3
+      with:
+        resource-group: ${{ env.RESOURCE_GROUP }}
+        cluster-name: ${{ env.AKS_CLUSTER_NAME }}
+
+    - name: Replace ACR Name in Manifests
+      run: |
+        sed -i "s/<ACR_NAME>/${{ env.ACR_NAME }}/g" k8s/backend.yaml
+        sed -i "s/<ACR_NAME>/${{ env.ACR_NAME }}/g" k8s/frontend.yaml
+
+    - name: Deploy to AKS
+      uses: Azure/k8s-deploy@v4
+      with:
+        manifests: |
+          k8s/backend.yaml
+          k8s/frontend.yaml
+          k8s/mongo.yaml
+          k8s/ingress.yaml
+        images: |
+          ${{ env.ACR_NAME }}.azurecr.io/backend:${{ github.sha }}
+          ${{ env.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }}
