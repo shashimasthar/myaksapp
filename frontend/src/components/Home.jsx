@@ -3,61 +3,91 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
-        <div style={{ paddingBottom: '4rem' }}>
-            {/* Hero Section */}
-            <div style={{
-                backgroundColor: '#002A54',
-                color: 'white',
-                padding: '4rem 2rem',
-                textAlign: 'center',
-                backgroundImage: 'linear-gradient(rgba(0, 42, 84, 0.8), rgba(0, 42, 84, 0.8)), url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-            }}>
-                <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Investing in Changing Lives</h1>
-                <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 2rem' }}>
-                    We promote the transition to open, market-oriented economies and promote private and entrepreneurial initiative.
-                </p>
-                <Link to="/portal">
-                    <button className="btn" style={{ width: 'auto', fontSize: '1.2rem', padding: '1rem 2rem' }}>Apply for a Loan</button>
-                </Link>
+        <div>
+            {/* Hero Section - Split Layout */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '500px' }}>
+                <div style={{ backgroundColor: '#1b365d', color: 'white', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <h1 style={{ fontSize: '3.5rem', marginBottom: '1.5rem', lineHeight: '1.1', color: 'white' }}>We invest in<br />changing lives</h1>
+                    <p style={{ fontSize: '1.2rem', marginBottom: '2rem', maxWidth: '500px', lineHeight: '1.6' }}>
+                        We promote the transition to open, market-oriented economies and promote private and entrepreneurial initiative.
+                    </p>
+                    <Link to="/portal">
+                        <button className="btn btn-accent" style={{ fontSize: '1rem', padding: '1rem 2rem' }}>Apply for a Loan</button>
+                    </Link>
+                </div>
+                <div style={{
+                    backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                }}></div>
             </div>
 
-            {/* About Section */}
-            <div className="container" style={{ marginTop: '4rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
-                    <div>
-                        <h2 style={{ color: '#002A54', borderBottom: '2px solid #004F9F', paddingBottom: '0.5rem', display: 'inline-block' }}>Who We Are</h2>
-                        <p style={{ lineHeight: '1.6', fontSize: '1.1rem', color: '#555' }}>
-                            The EBRD is a unique international financial institution that supports projects in over 30 countries, from central Europe to central Asia and the southern and eastern Mediterranean. Investing primarily in private sector clients whose needs cannot be fully met by the market, the Bank promotes entrepreneurship and fosters transition towards open and democratic market economies.
-                        </p>
-                    </div>
-                    <div>
-                        <img
-                            src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80"
-                            alt="Modern Office"
-                            style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                        />
+            {/* Stats Ribbon */}
+            <div style={{ backgroundColor: '#f4f4f4', padding: '3rem 0', borderBottom: '1px solid #ddd' }}>
+                <div className="container">
+                    <div className="grid-3" style={{ textAlign: 'center' }}>
+                        <div>
+                            <div style={{ fontSize: '2.5rem', fontWeight: '700', color: '#1b365d' }}>€210bn</div>
+                            <div style={{ textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px', marginTop: '0.5rem' }}>Invested</div>
+                        </div>
+                        <div style={{ borderLeft: '1px solid #ddd', borderRight: '1px solid #ddd' }}>
+                            <div style={{ fontSize: '2.5rem', fontWeight: '700', color: '#1b365d' }}>7,500+</div>
+                            <div style={{ textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px', marginTop: '0.5rem' }}>Projects</div>
+                        </div>
+                        <div>
+                            <div style={{ fontSize: '2.5rem', fontWeight: '700', color: '#1b365d' }}>40+</div>
+                            <div style={{ textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px', marginTop: '0.5rem' }}>Countries</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Sustainability Section */}
-            <div style={{ backgroundColor: 'white', padding: '4rem 0', marginTop: '4rem' }}>
-                <div className="container">
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-                                alt="Sustainability"
-                                style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                            />
-                        </div>
-                        <div>
-                            <h2 style={{ color: '#002A54', borderBottom: '2px solid #004F9F', paddingBottom: '0.5rem', display: 'inline-block' }}>Green Economy Transition</h2>
-                            <p style={{ lineHeight: '1.6', fontSize: '1.1rem', color: '#555' }}>
-                                We are a leader in climate finance. Our Green Economy Transition (GET) approach puts green investments at the heart of our strategy. We aim to make more than 50% of our annual investment green by 2025.
+            {/* Content Grid */}
+            <div className="container" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
+                <h2 style={{ marginBottom: '2rem', borderBottom: '2px solid #1b365d', display: 'inline-block', paddingBottom: '0.5rem' }}>Latest News & Projects</h2>
+                <div className="grid-3">
+                    {/* Card 1 */}
+                    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="News" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                        <div style={{ padding: '1.5rem' }}>
+                            <div style={{ color: '#666', fontSize: '0.85rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>27 Nov 2025</div>
+                            <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', lineHeight: '1.4' }}>EBRD supports green office development in Warsaw</h3>
+                            <p style={{ color: '#555', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                A new loan will fund the construction of a sustainable office complex, aiming for BREEAM Outstanding certification.
                             </p>
+                            <a href="#" style={{ color: '#1b365d', fontWeight: '700', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                READ MORE <span>&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* Card 2 */}
+                    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                        <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="News" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                        <div style={{ padding: '1.5rem' }}>
+                            <div style={{ color: '#666', fontSize: '0.85rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>26 Nov 2025</div>
+                            <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', lineHeight: '1.4' }}>Boosting renewable energy in Central Asia</h3>
+                            <p style={{ color: '#555', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                Significant investment in solar and wind power projects to help the region transition away from fossil fuels.
+                            </p>
+                            <a href="#" style={{ color: '#1b365d', fontWeight: '700', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                READ MORE <span>&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* Card 3 */}
+                    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2032&q=80" alt="News" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                        <div style={{ padding: '1.5rem' }}>
+                            <div style={{ color: '#666', fontSize: '0.85rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>25 Nov 2025</div>
+                            <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', lineHeight: '1.4' }}>Digital transformation for small businesses</h3>
+                            <p style={{ color: '#555', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                New credit line launched to help SMEs adopt digital technologies and improve their competitiveness.
+                            </p>
+                            <a href="#" style={{ color: '#1b365d', fontWeight: '700', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                READ MORE <span>&rarr;</span>
+                            </a>
                         </div>
                     </div>
                 </div>

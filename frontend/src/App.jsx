@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import Home from './components/Home'
 import EmiCalculator from './components/EmiCalculator'
 import LoanForm from './components/LoanForm'
@@ -12,20 +13,23 @@ function App() {
 
     return (
         <Router>
-            <div className="app">
+            <div className="app" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
                 <Navbar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/portal" element={
-                        <div className="container" style={{ display: 'block' }}>
-                            <Dashboard apiUrl={apiUrl} />
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-                                <EmiCalculator apiUrl={apiUrl} />
-                                <LoanForm apiUrl={apiUrl} />
+                <div style={{ flex: 1 }}>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/portal" element={
+                            <div className="container" style={{ display: 'block', marginTop: '2rem' }}>
+                                <Dashboard apiUrl={apiUrl} />
+                                <div className="grid-2">
+                                    <EmiCalculator apiUrl={apiUrl} />
+                                    <LoanForm apiUrl={apiUrl} />
+                                </div>
                             </div>
-                        </div>
-                    } />
-                </Routes>
+                        } />
+                    </Routes>
+                </div>
+                <Footer />
             </div>
         </Router>
     )

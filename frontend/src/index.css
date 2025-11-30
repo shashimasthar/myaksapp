@@ -1,17 +1,29 @@
 :root {
-  --ebrd-navy: #002A54;
-  --ebrd-blue: #004F9F;
-  --ebrd-grey: #F0F2F5;
-  --text-color: #333333;
+  --ebrd-navy: #1b365d;
+  --ebrd-blue: #003399;
+  --ebrd-accent: #ff9e1b;
+  --ebrd-grey: #f4f4f4;
+  --text-dark: #333333;
+  --text-light: #ffffff;
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--ebrd-grey);
-  color: var(--text-color);
+  background-color: white;
+  color: var(--text-dark);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: var(--ebrd-navy);
+  margin-top: 0;
 }
 
 .header {
@@ -27,20 +39,47 @@ body {
   font-size: 1.5rem;
 }
 
+/* Utilities */
 .container {
   max-width: 1200px;
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 0 1rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+}
+
+.btn {
+  background-color: var(--ebrd-blue);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 0;
+  /* Square buttons for corporate look */
+}
+
+.btn:hover {
+  background-color: var(--ebrd-navy);
+}
+
+.btn-accent {
+  background-color: var(--ebrd-accent);
+  color: var(--ebrd-navy);
 }
 
 .card {
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .card h2 {
@@ -51,8 +90,9 @@ body {
   margin-bottom: 1.5rem;
 }
 
+/* Form Styles */
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
@@ -64,27 +104,10 @@ body {
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  font-family: 'Roboto', sans-serif;
   font-size: 1rem;
-}
-
-.btn {
-  background-color: var(--ebrd-blue);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: background-color 0.2s;
-  width: 100%;
-}
-
-.btn:hover {
-  background-color: var(--ebrd-navy);
 }
 
 .result-box {
@@ -101,8 +124,30 @@ body {
   font-weight: bold;
 }
 
+/* Grid System */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
 @media (max-width: 768px) {
-  .container {
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
     grid-template-columns: 1fr;
   }
 }
