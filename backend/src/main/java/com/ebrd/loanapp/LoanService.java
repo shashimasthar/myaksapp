@@ -8,6 +8,10 @@ import java.util.List;
 @Service
 public class LoanService {
 
+    private static final String STATUS_APPROVED = "APPROVED";
+    private static final int MONTHS_IN_YEAR = 12;
+    private static final int PERCENTAGE_DIVISOR = 100;
+
     private final LoanRepository repository;
 
     public LoanService(LoanRepository repository) {
@@ -18,7 +22,7 @@ public class LoanService {
         log.info("Processing loan application for: {}", request.getApplicantName());
         double emi = calculateEmi(request.getAmount(), request.getInterestRate(), request.getTenureMonths());
         request.setMonthlyEmi(emi);
-        request.setStatus("APPROVED"); // Auto-approve for demo
+        request.setStatus(STATUS_APPROVED); // Auto-approve for demo
         log.info("Loan approved with EMI: {}", emi);
         return repository.save(request);
     }
@@ -30,7 +34,7 @@ public class LoanService {
 
     public double calculateEmi(double principal, double annualRate, int months) {
         log.debug("Calculating EMI for Principal: {}, Rate: {}, Months: {}", principal, annualRate, months);
-        double monthlyRate = annualRate / 12 / 100;
+        double monthlyRate = annualRate / MONTHS_IN_YEAR / PERCENTAGE_DIVISOR;
         double emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / 
                (Math.pow(1 + monthlyRate, months) - 1);
         return Math.round(emi * 100.0) / 100.0; // Round to 2 decimal places

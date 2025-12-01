@@ -19,8 +19,13 @@ public class LoanController {
     }
 
     @PostMapping
-    public LoanRequest apply(@Valid @RequestBody LoanRequest request) {
+    public LoanRequest apply(@Valid @RequestBody LoanApplicationDto dto) {
         log.info("Received loan application request");
+        LoanRequest request = new LoanRequest();
+        request.setApplicantName(dto.getApplicantName());
+        request.setAmount(dto.getAmount());
+        request.setInterestRate(dto.getInterestRate());
+        request.setTenureMonths(dto.getTenureMonths());
         return service.applyForLoan(request);
     }
 
@@ -30,13 +35,9 @@ public class LoanController {
     }
 
     @PostMapping("/calculate-emi")
-    public Map<String, Double> calculateEmi(@RequestBody Map<String, Double> request) {
-        double principal = request.get("amount");
-        double rate = request.get("rate");
-        int months = request.get("months").intValue();
-        
+    public Map<String, Double> calculateEmi(@RequestBody EmiCalculationRequest request) {
         log.info("Received EMI calculation request");
-        double emi = service.calculateEmi(principal, rate, months);
+        double emi = service.calculateEmi(request.getAmount(), request.getRate(), request.getMonths());
         return Map.of("emi", emi);
     }
 }
