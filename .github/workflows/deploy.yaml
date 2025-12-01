@@ -41,6 +41,7 @@ jobs:
         cd backend
         mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
         -Dsonar.projectKey=loanapp \
+        -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
         -Dsonar.projectName='Loan Application'
 
     - name: Azure Login
